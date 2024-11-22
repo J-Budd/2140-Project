@@ -33,7 +33,7 @@ public class MainEntry extends JFrame {
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         // Screen elements
-        screenDescription = new JLabel("To-Do List", SwingConstants.CENTER);
+        screenDescription = new JLabel("Lakespen Basic School Database Manager", SwingConstants.CENTER);
         cmdSignIn = new JButton("Sign In");
         cmdSignUp = new JButton("Sign Up");
         cmdClose = new JButton("Close");
