@@ -1,1 +1,7 @@
 #This is where the classes and their descriptions are held.
+
+MainEntry: This is how the system is loaded. It is a simple startup screen with three buttons: Sign Up, Sign In, and Close
+The functions for these buttons should be self-explanatory
+
+The Sign Up and Sign In buttons connect to SignUpOrIn class which can be found in Authorisation > SignUpOrIn.java
+
