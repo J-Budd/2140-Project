@@ -13,7 +13,10 @@ import java.awt.event.ActionEvent;
 public class SignUpOrIn extends JFrame {
     private boolean signIn; // Stores the state of whether a user is signing in or not
     private MainEntry mainScreen; // Reference to the main entry screen
-    private TaskListing taskListing; // Reference to the task listing screen
+    //TODO: Add individual screens for Teacher, Principal and Cook
+    private PrincipalListing principalScreen; // Reference to the principal's main screen
+    private TeacherListing teacherScreen; // Reference to the teachers' main screen
+    private CookListing cookScreen; // Reference to the cooks' main screen
 
     private JLabel screenDescription; // Label displaying the screen description
 
@@ -21,10 +24,14 @@ public class SignUpOrIn extends JFrame {
     private JTextField usernameField;
     private JTextField passwordField;
     private JTextField secondPasswordField;
+    private JTextField roleField;
 
     // Buttons for user actions
     private JButton cmdBack;
     private JButton cmdEnter;
+    private JRadioButton principalButton;
+    private JRadioButton teacherButton;
+    private JRadioButton cookButton;
 
     // Panels for UI components
     private JPanel mainPanel;
@@ -71,7 +78,7 @@ public class SignUpOrIn extends JFrame {
         secondPanel.add(passwordField);
 
         if (!signIn) {
-            addSecondPasswordField();
+            addSecondaryComponents();
         }
         secondPanel.add(cmdEnter);
         secondPanel.add(cmdBack);
@@ -91,10 +98,33 @@ public class SignUpOrIn extends JFrame {
     /**
      * Adds a second password field to the UI for sign-up state.
      */
-    public void addSecondPasswordField() {
+    public void addSecondaryComponents() {
+        //Add new password field for confirmation
         secondPasswordField = new JTextField();
         secondPanel.add(new JLabel("Re-enter Password: "));
         secondPanel.add(secondPasswordField);
+
+        //adding a textfield that displays the role that was selected; TODO: Find a method that doesn't require it
+        roleField = new JTextField();
+        secondPanel.add(new JLabel("User's Role: "));
+        secondPanel.add(roleField);
+
+        //Add radio button groups for roles
+        teacherButton = new JRadioButton("Teacher");
+        cookButton = new JRadioButton("Cook");
+        principalButton = new JRadioButton("Principal");
+        JRadioButton[] buttons = {teacherButton, cookButton, principalButton};
+
+        //ensuring only one button can be selected at a time
+        ButtonGroup group = new ButtonGroup();
+        group.add(principalButton);
+        group.add(teacherButton);
+        group.add(cookButton);
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].addActionListener(new Selected());
+        }
+
     }
 
     /**
@@ -147,7 +177,13 @@ public class SignUpOrIn extends JFrame {
                         showPopUp("Password Invalid");
                         return;
                     } else {
-                        userLogin = new User(username, password1);
+                        String role = roleField.getText();
+                        if (role.equals("Principal")) {
+                            showPopUp("Role Invalid");
+                            return;
+                        } else {
+                            userLogin = new User(username, password1, role);
+                        }
                     }
                 } else {
                     userLogin = User.findUser(username, password1);
@@ -162,14 +198,36 @@ public class SignUpOrIn extends JFrame {
             }
 
             if (userLogin != null) {
+                String role = User.getRole();
                 try {
-                    taskListing = new TaskListing(userLogin);
+                    //TODO: Create new screens based on role selected
+                    if (role.equals("Principal")) {
+                        principalScreen = new PrincipalListing(userLogin);
+                        principalScreen.setVisible(true);
+                    } else if (role.equals("Principal")) {
+                        teacherScreen = new TeacherListing(userLogin);
+                        teacherScreen.setVisible(true);
+                    } else if (role.equals("Principal")) {
+                        cookScreen = new CookListing(userLogin);
+                        cookScreen.setVisible(true);
+                    } else {
+                        showPopUp("Invalid Role");
+                        return;
+                    }
                 } catch (IOException | ParseException ex) {
                     ex.printStackTrace();
                 }
-                taskListing.setVisible(true);
                 setVisible(false);
             }
         }
     }
+
+    private class Selected implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            Object source = e.getSource();//gets which button was pressed
+            String name = e.getActionCommand();
+            roleField.setText(name);
+        }
+    }
+
 }

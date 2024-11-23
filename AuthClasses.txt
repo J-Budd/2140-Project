@@ -23,4 +23,5 @@ any user signing up cannot select the Principal button.
 If the user clicked sign in, they will be presented with a username entry field, and a Password
 entry field. The system is to scan the UserData folder for a txt file named after the user. From
 there it will check if the entered password is correct. It will also check the user's role to
-determine what screens the user should have access to.
+determine what screens the user should have access to. 
+A certain screen will be shown dependent on what role the user has

@@ -14,58 +14,72 @@ public class User {
     
     /** The password of the user. */
     protected String password;
-    
-    /** List of existing user objects. */
-    public ArrayList<User> existingUsers;
-    
-    /** List of all user objects. */
-    public static ArrayList<User> userlist = new ArrayList<User>();
-    
-    /** The file associated with the user to store tasks. */
-    protected File ufile;
 
-    /**
-     * Constructs a new User object with the given username and password.
-     * Initializes the user's file to store tasks.
-     *
-     * @param uname the username of the user
-     * @param upass the password of the user
-     */
-    public User(String uname, String upass) {
-        username = uname;
-        password = upass;
-        String fileName = username + ".txt";
-        new File("src/UserData/").mkdirs();
-        ufile = new File("src/UserData/" + fileName);
+    /** The password of the user. */
+    protected static String role;
+    
         
-        try {
-            if (ufile.createNewFile()) {
-                System.out.println("File created");
-            } else {
-                System.out.println("File already exists");
+        /** List of existing user objects. */
+        public ArrayList<User> existingUsers;
+        
+        /** List of all user objects. */
+        public static ArrayList<User> userlist = new ArrayList<User>();
+        
+        /** The file associated with the user to store tasks. */
+        protected File ufile;
+    
+        /**
+         * Constructs a new User object with the given username and password.
+         * Initializes the user's file to store tasks.
+         *
+         * @param uname the username of the user
+         * @param upass the password of the user
+         */
+        public User(String uname, String upass, String urole) {
+            username = uname;
+            password = upass;
+            role = urole;
+            String fileName = username + ".txt";
+            new File("src/UserData/").mkdirs();
+            ufile = new File("src/UserData/" + fileName);
+            
+            try {
+                if (ufile.createNewFile()) {
+                    System.out.println("File created");
+                } else {
+                    System.out.println("File already exists");
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            userlist.add(this);
         }
-        userlist.add(this);
-    }
-
-    /**
-     * Gets the username of the user.
-     *
-     * @return the username of the user
-     */
-    public String getUsername() {
-        return this.username;
-    }
-
-    /**
-     * Gets the password of the user.
-     *
-     * @return the password of the user
-     */
-    public String getPassword() {
-        return this.password;
+    
+        /**
+         * Gets the username of the user.
+         *
+         * @return the username of the user
+         */
+        public String getUsername() {
+            return this.username;
+        }
+    
+        /**
+         * Gets the password of the user.
+         *
+         * @return the password of the user
+         */
+        public String getPassword() {
+            return this.password;
+        }
+    
+        /**
+         * Gets the password of the user.
+         *
+         * @return the password of the user
+         */
+        public static String getRole() {
+            return role;
     }
 
     /**
@@ -103,7 +117,7 @@ public class User {
             uScan = new Scanner(new File("Users.txt"));
             while (uScan.hasNext()) {
                 String[] nextLine = uScan.nextLine().split(" ");
-                new User(nextLine[0], nextLine[1]);
+                new User(nextLine[0], nextLine[1], nextLine[2]);
             }
 
             uScan.close();
