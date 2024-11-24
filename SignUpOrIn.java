@@ -106,6 +106,7 @@ public class SignUpOrIn extends JFrame {
 
         //adding a textfield that displays the role that was selected; TODO: Find a method that doesn't require it
         roleField = new JTextField();
+        roleField.setEditable(false);
         secondPanel.add(new JLabel("User's Role: "));
         secondPanel.add(roleField);
 
