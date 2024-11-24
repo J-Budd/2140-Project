@@ -1,0 +1,12 @@
+#Names and Descriptors of all classes related to authorised teachers
+
+TODO:
+The main teacher screen should display the following:
+> Teacher's Name
+> The current date
+> Reminder to record attendance 
+> A showing of due assignments and upcoming assignments (for tomorrow)
+Below will be a panel with buttons that redirects the teacher to the following screens:
+> Student Records
+> Student attendance
+> Student assignments
