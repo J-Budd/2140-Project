@@ -1,5 +1,8 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import javafx.concurrent.Task;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
@@ -32,6 +35,12 @@ public class TeacherListing extends JFrame {
     private JPanel pnlSummary; //Panel that displays current information
     private JPanel pnlCommand; //Panel that holds buttons
 
+    //Labels
+    private JLabel name;
+    private JLabel attendanceReminder;
+    private JLabel assignmentDayReminder;
+    private JLabel assignmentMorrowReminder;
+
     /**
      * Constructor for TaskListing class.
      * Initializes the TaskListing instance with the current user and loads tasks from file.
@@ -46,8 +55,118 @@ public class TeacherListing extends JFrame {
 
         setLayout(new BorderLayout());
 
-    
+        pnlGreeting = new JPanel();
+        name = new JLabel("Welcome back, " + this.currentUser.getUsername());
+        pnlGreeting.add(name);
+        add(pnlGreeting,BorderLayout.NORTH);
+
+        pnlSummary = new JPanel();
+        //Display reminder to take attendance
+        if (!cmdDisplayAttendance.getText().contains("Done")) {
+            attendanceReminder = new JLabel("Attendance has not been taken today. Please remember to do so.");
+            pnlSummary.add(attendanceReminder);
+        }
+
+        //Display reminder about upcoming assignments
+        String assignToday = "Here is/are today's assignment/s: "; //Add any assignment due today
+        String assignTomorrow = "Here is/are tomorrow's assignment/s: "; //Add any assignment due tomorrow
+        assignmentDayReminder = new JLabel(assignToday);
+        pnlSummary.add(assignmentDayReminder);
+        assignmentMorrowReminder = new JLabel(assignTomorrow);
+        pnlSummary.add(assignmentMorrowReminder);
+        add(pnlSummary,BorderLayout.CENTER);
+
+        pnlCommand = new JPanel();
+        //Formatting buttons
+        cmdDisplayRecords = new JButton("View Student Records");
+        cmdDisplayAttendance = new JButton("View Student Attendance");
+        cmdDisplayAssignments = new JButton("View Assignments");
+        cmdClose = new JButton("Close");
+
+        Color buttonColor = new Color(0, 128, 0);
+        cmdDisplayRecords.setBackground(buttonColor);
+        cmdDisplayAttendance.setBackground(buttonColor);
+        cmdDisplayAssignments.setBackground(buttonColor);
+        cmdClose.setBackground(buttonColor);
+
+        cmdDisplayRecords.addActionListener(new DisplayRecordsButtonListener());
+        cmdDisplayAttendance.addActionListener(new DisplayAttendanceButtonListener());
+        cmdDisplayAssignments.addActionListener(new DisplayAssignmentsButtonListener());
+        cmdClose.addActionListener(new CloseButtonListener());
+
+        pnlCommand.add(cmdDisplayRecords);
+        pnlCommand.add(cmdDisplayAttendance);
+        pnlCommand.add(cmdDisplayAssignments);
+        pnlCommand.add(cmdClose);
+
+        add(pnlCommand,BorderLayout.SOUTH);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);    
+    }
+
+    /**
+     * Formats a Date object to a string in "dd-MM-yyyy" format.
+     * 
+     * @param date the Date object to format
+     * @return the formatted date string
+     */
+    private String formatDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat.format(date);
+    }
+
+    /**
+     * ActionListener implementation to save tasks to file and close the application.
+     */
+    private class CloseButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            saveUsers();
+            System.exit(0);
+        }
     }
 
 
+    /**
+     * Saves user details to the users file.
+     */
+    private void saveUsers() {
+        File usersFile = new File("Users.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFile))) {
+            for (User user : User.userlist) {
+                writer.write(user.getUsername() + " " + user.getPassword());
+                writer.newLine();
+            }
+            System.out.println("Users saved to file: " + usersFile);
+        } catch (IOException e) {
+            System.out.println("Error saving users to file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private class DisplayRecordsButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            // TODO: Add class for Student Records
+            throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        }
+
+    }
+
+    private class DisplayAttendanceButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            AttendanceListing attendance = new AttendanceListing(thisForm);
+            attendance.setVisible(true);
+        }
+        
+    }
+
+    private class DisplayAssignmentsButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            // TODO: Add class for Assignments
+            throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        }
+        
+    }
+
+    
 }
