@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import javafx.concurrent.Task;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
@@ -17,7 +15,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 /**
- * TaskListing class extends JFrame to provide a user interface for registered teachers.
+ * TeacherListing class extends JFrame to provide a user interface for registered teachers.
  * Teachers can manage student records, check student attendance, and manage assignments 
  */
 @SuppressWarnings({ "unused", "serial" })
@@ -62,10 +60,8 @@ public class TeacherListing extends JFrame {
 
         pnlSummary = new JPanel();
         //Display reminder to take attendance
-        if (!cmdDisplayAttendance.getText().contains("Done")) {
-            attendanceReminder = new JLabel("Attendance has not been taken today. Please remember to do so.");
-            pnlSummary.add(attendanceReminder);
-        }
+        attendanceReminder = new JLabel("Remember to take attendance today!");
+        pnlSummary.add(attendanceReminder);
 
         //Display reminder about upcoming assignments
         String assignToday = "Here is/are today's assignment/s: "; //Add any assignment due today
@@ -131,10 +127,10 @@ public class TeacherListing extends JFrame {
      * Saves user details to the users file.
      */
     private void saveUsers() {
-        File usersFile = new File("Users.txt");
+        File usersFile = new File("Data/UserData/Users.txt");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFile))) {
             for (User user : User.userlist) {
-                writer.write(user.getUsername() + " " + user.getPassword());
+                writer.write(user.getUsername() + " " + user.getPassword() + " " + user.getRole());
                 writer.newLine();
             }
             System.out.println("Users saved to file: " + usersFile);
@@ -154,8 +150,12 @@ public class TeacherListing extends JFrame {
 
     private class DisplayAttendanceButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
-            AttendanceListing attendance = new AttendanceListing(thisForm);
-            attendance.setVisible(true);
+            try{
+                AttendanceListing attendance = new AttendanceListing(thisForm);
+                attendance.setVisible(true);
+            }  catch (IOException | ParseException ex) {
+                ex.printStackTrace();
+            }
         }
         
     }

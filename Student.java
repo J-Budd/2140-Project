@@ -1,7 +1,6 @@
 
 import java.io.*;
 import java.util.*;
-
 /**
  * The Student class represents a studnet in the school management system.
  * Each student has a name, birthday, address and relevant contact information
@@ -37,8 +36,8 @@ public class Student {
         this.emergencyContact = semergencyContact;
 
         String fileName = slname + sfname + ".txt";
-            new File("src/Data/Student/Records").mkdirs();
-            sfile = new File("src/UserData/" + fileName);
+            new File("Data/Student/Records/").mkdirs();
+            sfile = new File("Data/Student/Records/" + fileName);
             
             try {
                 if (sfile.createNewFile()) {
@@ -51,6 +50,7 @@ public class Student {
             }
 
         studentList.add(this);
+        UpdateFile(this);
     }
 
     /**
@@ -107,7 +107,7 @@ public class Student {
     public static void loadExistingStudnets() {
         Scanner uScan = null;
         try {
-            uScan = new Scanner(new File("Students.txt"));
+            uScan = new Scanner(new File("Data/Student/Records/StudentsList.txt"));
             while (uScan.hasNext()) {
                 String[] nextLine = uScan.nextLine().split(" ");
                 new Student(nextLine[0], nextLine[1], nextLine[2], nextLine[3], nextLine[4], nextLine[5], nextLine[6]);
@@ -117,4 +117,19 @@ public class Student {
             // Handle exception
         }
     }
+
+    public static void UpdateFile(Student student) {
+        File studentFile = new File("Data/Student/Records/StudentsList.txt");
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(studentFile, true))) {
+                writer.write(student.getLastName() + " " + student.getFirstName());
+                writer.newLine();
+                writer.close();
+            
+                System.out.println("Student saved to file: " + studentFile);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
+
