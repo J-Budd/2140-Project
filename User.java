@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * The User class represents a user in the task management system.
+ * The User class represents a user in the school management system.
  * Each user has a username and a password to authenticate.
  * It also manages user data files and provides methods to manage user information.
  */
@@ -15,71 +15,71 @@ public class User {
     /** The password of the user. */
     protected String password;
 
-    /** The password of the user. */
-    protected static String role;
+    /** The role of the user. */
+    protected String role;
     
         
-        /** List of existing user objects. */
-        public ArrayList<User> existingUsers;
-        
-        /** List of all user objects. */
-        public static ArrayList<User> userlist = new ArrayList<User>();
-        
-        /** The file associated with the user to store tasks. */
-        protected File ufile;
+    /** List of existing user objects. */
+    public ArrayList<User> existingUsers;
     
-        /**
-         * Constructs a new User object with the given username and password.
-         * Initializes the user's file to store tasks.
-         *
-         * @param uname the username of the user
-         * @param upass the password of the user
-         */
-        public User(String uname, String upass, String urole) {
-            username = uname;
-            password = upass;
-            role = urole;
-            String fileName = username + ".txt";
-            new File("src/UserData/").mkdirs();
-            ufile = new File("src/UserData/" + fileName);
-            
-            try {
-                if (ufile.createNewFile()) {
-                    System.out.println("File created");
-                } else {
-                    System.out.println("File already exists");
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+    /** List of all user objects. */
+    public static ArrayList<User> userlist = new ArrayList<User>();
+    
+    /** The file associated with the user to store tasks. */
+    protected File ufile;
+
+    /**
+     * Constructs a new User object with the given username and password.
+     * Initializes the user's file to store tasks.
+     *
+     * @param uname the username of the user
+     * @param upass the password of the user
+     */
+    public User(String uname, String upass, String urole) {
+        username = uname;
+        password = upass;
+        role = urole;
+        String fileName = username + ".txt";
+        new File("Data/UserData/").mkdirs();
+        ufile = new File("Data/UserData/" + fileName);
+        
+        try {
+            if (ufile.createNewFile()) {
+                System.out.println("File created");
+            } else {
+                System.out.println("File already exists");
             }
-            userlist.add(this);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-    
-        /**
-         * Gets the username of the user.
-         *
-         * @return the username of the user
-         */
-        public String getUsername() {
-            return this.username;
-        }
-    
-        /**
-         * Gets the password of the user.
-         *
-         * @return the password of the user
-         */
-        public String getPassword() {
-            return this.password;
-        }
-    
-        /**
-         * Gets the password of the user.
-         *
-         * @return the password of the user
-         */
-        public static String getRole() {
-            return role;
+        userlist.add(this);
+    }
+
+    /**
+     * Gets the username of the user.
+     *
+     * @return the username of the user
+     */
+    public String getUsername() {
+        return this.username;
+    }
+
+    /**
+     * Gets the password of the user.
+     *
+     * @return the password of the user
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * Gets the password of the user.
+     *
+     * @return the password of the user
+     */
+    public String getRole() {
+        return role;
     }
 
     /**
@@ -114,7 +114,7 @@ public class User {
     public static void loadExistingUsers() {
         Scanner uScan = null;
         try {
-            uScan = new Scanner(new File("Users.txt"));
+            uScan = new Scanner(new File("Data/UserData/Users.txt"));
             while (uScan.hasNext()) {
                 String[] nextLine = uScan.nextLine().split(" ");
                 new User(nextLine[0], nextLine[1], nextLine[2]);

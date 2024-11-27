@@ -1,13 +1,5 @@
 #This is where classes and their descriptions will be listed
 
-#User
-This is the main class for creating users. User have three components:
-> Username (cannot be less than three characters; must be unique)
-> Password (cannot be less than three characters)
-> Role (Teacher/Cook/Principal; can only be one Principal)
-
-Each user has their own file, which is held in a folder called UserData. 
-
 
 #SignUpOrIn
 This is the main class for signing up for/signing into the system. SignUpOrIn.java is directly linked to MainEntry.java
