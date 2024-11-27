@@ -30,7 +30,7 @@ public class MainEntry extends JFrame {
 
         // Creating panel with a grid layout and setting border
         panel = new JPanel(new GridLayout(4, 1, 10, 10));
-        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panel.setBorder(new EmptyBorder(50, 50, 50, 50));
 
         // Screen elements
         screenDescription = new JLabel("Lakespen Basic School Database Manager", SwingConstants.CENTER);
@@ -39,7 +39,7 @@ public class MainEntry extends JFrame {
         cmdClose = new JButton("Close");
 
         // Element Properties
-        screenDescription.setFont(new Font("Arial", Font.BOLD, 24));
+        screenDescription.setFont(new Font("Arial", Font.BOLD, 18));
 
         cmdClose.setBackground(Color.DARK_GRAY);
         cmdClose.setForeground(Color.WHITE);
