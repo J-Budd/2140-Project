@@ -1,47 +1,47 @@
-//Todo 
-//1.1: The system shall prompt the user with a data entry screen.
-//1.2: The system shall sort the expense entered by type, e.g. Salary,Groceries, etc.
-//1.3: The system shall provide a means for an authorized user to make changes within a day of the initial entry. 
-//1.4: The system shall provide a means for an authorized user to search for specific expenses by date or by category. 
-//1.5: The system shall generate a summary expense report at the end of the month for an authorized user 
-//1.6: The system shall provide a detailed expense report at the end of a three month period for an authorized user. 
+package com.example.expensemanager;
 
+import java.io.Serializable;
+import java.util.Date;
 
-
-import java.time.LocalDate;
-
-public class Expense{
-    private LocalDate date;
-    private String type;
+public class Expense implements Serializable {
     private double amount;
-    private String about;
+    private String description;
+    private String type;  // Added type field for expense type
+    private Date date;
 
-    public Expense(String type, double amount,String about){
-        this.date= LocalDate.now();
-        this.type = type;
+    public Expense(double amount, String description, String type) {
         this.amount = amount;
-        this.about = about; 
-    }
-
-    public Expense(LocalDate date, String type,double amount,String about){
-        this.date =  date;
+        this.description = description;
         this.type = type;
-        this.amount = amount;
-        this.about = about; 
+        this.date = new Date();
     }
 
-    public LocalDate getDate(){
-        return date;
+    // Getters and Setters
+    public double getAmount() {
+        return amount;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
-    public double getamountb(){
+    public Date getDate() {
         return date;
     }
-    
-    
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
