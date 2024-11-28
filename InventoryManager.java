@@ -41,7 +41,7 @@ public class InventoryManager {
         logTransaction("Added item: " + name + ", Category: " + category + ", Quantity: " + quantity);
         sortInventoryByQuantity();
         saveInventoryToFile();
-        return "Item saved.";
+        return "Item added and saved to inventory.";
     }
 
     // Update the quantity of an existing item
