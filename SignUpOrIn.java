@@ -197,6 +197,7 @@ public class SignUpOrIn extends JFrame {
                     } else if (role.equals("cook")) {
                         //TODO cookScreen = new CookListing(userLogin);
                         //TODO cookScreen.setVisible(true);
+                        InventoryMain.main(new String[]{});
                     } else {
                         showPopUp("Invalid Role");
                         return;
