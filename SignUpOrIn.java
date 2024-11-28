@@ -13,10 +13,9 @@ import java.awt.event.ActionEvent;
 public class SignUpOrIn extends JFrame {
     private boolean signIn; // Stores the state of whether a user is signing in or not
     private MainEntry mainScreen; // Reference to the main entry screen
-    //TODO private PrincipalListing principalScreen; // Reference to the principal's main screen
+    private ExpenseManagerApp principalScreen; // Reference to the principal's main screen
     private TeacherListing teacherScreen; // Reference to the teachers' main screen
-    //TODO private CookListing cookScreen; // Reference to the cooks' main screen
-
+    
     private JLabel screenDescription; // Label displaying the screen description
 
     // Text fields for user input
@@ -189,14 +188,12 @@ public class SignUpOrIn extends JFrame {
                 String role = userLogin.getRole().toLowerCase();
                 try {
                     if (role.equals("principal")) {
-                        //TODO principalScreen = new PrincipalListing(userLogin);
-                        //TODO principalScreen.setVisible(true);
+                        principalScreen = new ExpenseManagerApp();
+                        principalScreen.setVisible(true);
                     } else if (role.equals("teacher")) {
                         teacherScreen = new TeacherListing(userLogin);
                         teacherScreen.setVisible(true);
                     } else if (role.equals("cook")) {
-                        //TODO cookScreen = new CookListing(userLogin);
-                        //TODO cookScreen.setVisible(true);
                         InventoryMain.main(new String[]{});
                     } else {
                         showPopUp("Invalid Role");
