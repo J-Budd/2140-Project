@@ -1,0 +1,4 @@
+Item,Category,Quantity
+milk,Groceries,20
+butter,Groceries,20
+bread,Groceries,680
