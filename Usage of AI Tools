@@ -10,3 +10,7 @@ Expense Table Model Class to properly manipulate the new use of the JTable featu
 Claude Ai was used to help with clearing the display area after a button was clicked on. The area was constantly being stucked on either the view log or display item.
 #StudentListing
 Replit Code AI was used to aid in the designing of the savefileClicked(), identifying issues with they way data was managed which lead to me using StringBuilder to make comma seperated values (CSV) instead of using .DAT file.
+
+#GradeManagementSystem
+When implementing the SaveGradeAction class, I ran into a persistent ConcurrentModificationException while trying to update the grades map and clear the input fields simultaneously.
+Claude AI helped to implement the thread-safe solution using computeIfAbsent() which resolved the concurrency issue while maintaining data integrity.
