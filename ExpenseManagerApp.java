@@ -1,4 +1,3 @@
-package com.example.expensemanager;
 
 import javax.swing.*;
 import java.awt.*;
