@@ -35,7 +35,7 @@ public class TeacherListing extends JFrame {
 
     //Labels
     private JLabel name;
-    private JLabel attendanceReminder;
+    private JLabel reminder;
     private JLabel assignmentDayReminder;
     private JLabel assignmentMorrowReminder;
 
@@ -60,16 +60,8 @@ public class TeacherListing extends JFrame {
 
         pnlSummary = new JPanel();
         //Display reminder to take attendance
-        attendanceReminder = new JLabel("Remember to take attendance today!");
-        pnlSummary.add(attendanceReminder);
-
-        //Display reminder about upcoming assignments
-        String assignToday = "Here is/are today's assignment/s: "; //Add any assignment due today
-        String assignTomorrow = "Here is/are tomorrow's assignment/s: "; //Add any assignment due tomorrow
-        assignmentDayReminder = new JLabel(assignToday);
-        pnlSummary.add(assignmentDayReminder);
-        assignmentMorrowReminder = new JLabel(assignTomorrow);
-        pnlSummary.add(assignmentMorrowReminder);
+        reminder = new JLabel("Remember to take attendance and hand out assignments today!");
+        pnlSummary.add(reminder);
         add(pnlSummary,BorderLayout.CENTER);
 
         pnlCommand = new JPanel();
@@ -79,7 +71,7 @@ public class TeacherListing extends JFrame {
         cmdDisplayAssignments = new JButton("View Assignments");
         cmdClose = new JButton("Close");
 
-        Color buttonColor = new Color(0, 128, 0);
+        Color buttonColor = new Color(135, 206, 235);
         cmdDisplayRecords.setBackground(buttonColor);
         cmdDisplayAttendance.setBackground(buttonColor);
         cmdDisplayAssignments.setBackground(buttonColor);
