@@ -53,6 +53,7 @@ public class User {
             System.out.println(e.getMessage());
         }
         userlist.add(this);
+        saveUsers();
     }
 
     /**
@@ -123,6 +124,23 @@ public class User {
             uScan.close();
         } catch (IOException e) {
             // Handle exception
+        }
+    }
+
+    /**
+    *Saves users to a single file
+    */
+    public void saveUsers() {
+        File usersFile = new File("Data/UserData/Users.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFile))) {
+            for (User user : User.userlist) {
+                writer.write(user.getUsername() + " " + user.getPassword() + " " + user.getRole());
+                writer.newLine();
+            }
+            System.out.println("Users saved to file: " + usersFile);
+        } catch (IOException e) {
+            System.out.println("Error saving users to file: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
