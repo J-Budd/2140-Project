@@ -157,7 +157,7 @@ public class SignUpOrIn extends JFrame {
             if (usernameAvail && username.length() >= 3) {
                 if (!signIn) {
                     String password2 = secondPasswordField.getText();
-                    if (password1.length() < 3 || !password1.equals(password2)) {
+                    if (password1.length() < 8 || !password1.equals(password2)) {
                         showPopUp("Password Invalid");
                         return;
                     } else {
@@ -176,12 +176,12 @@ public class SignUpOrIn extends JFrame {
                 } else {
                     userLogin = User.findUser(username, password1);
                     if (userLogin == null) {
-                        showPopUp("Invalid login");
+                        showPopUp("Invalid login. Check Username and Password and try again.");
                         return;
                     }
                 }
             } else {
-                showPopUp("Username Invalid");
+                showPopUp("Username must be three characters or longer");
                 return;
             }
 
