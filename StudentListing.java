@@ -152,10 +152,10 @@ public class StudentListing extends JPanel {
                     if (student.length == 7) {
                         addToTable(student);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Invalid data format in the file.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Invalid file", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                JOptionPane.showMessageDialog(this, "File loaded successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "File Loaded!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "Error reading file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -171,7 +171,7 @@ public class StudentListing extends JPanel {
             File file = fileChooser.getSelectedFile();
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 for (int row = 0; row < model.getRowCount(); row++) {
-                    //CSV string for each row
+                    
                     StringBuilder rowData = new StringBuilder();
                     for (int col = 0; col < model.getColumnCount(); col++) {
                         rowData.append(model.getValueAt(row, col).toString());
@@ -182,7 +182,7 @@ public class StudentListing extends JPanel {
                     writer.write(rowData.toString());
                     writer.newLine(); 
                 }
-                JOptionPane.showMessageDialog(this, "Data saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Data saved ", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "Error saving file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
