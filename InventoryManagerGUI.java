@@ -29,7 +29,7 @@ public class InventoryManagerGUI extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Create buttons
+        // Creating the buttons
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -59,7 +59,7 @@ public class InventoryManagerGUI extends JFrame {
 
         add(inputPanel, BorderLayout.NORTH);
 
-        // Create display area
+        //  display area
         displayPanel = new JPanel(new BorderLayout());
         displayArea = new JTextArea();
         displayArea.setEditable(false);
@@ -85,6 +85,10 @@ public class InventoryManagerGUI extends JFrame {
             int result = JOptionPane.showConfirmDialog(null, panel, "Add Item", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
                 String name = nameField.getText();
+                if (name.isEmpty()) {
+                    displayArea.setText("Error: Item must have a name to be added.");
+                    return;
+                }
                 String category = (String) categoryComboBox.getSelectedItem();
                 int quantity;
                 try {
@@ -111,7 +115,7 @@ public class InventoryManagerGUI extends JFrame {
             updateGroup.add(addRadioButton);
             updateGroup.add(useRadioButton);
 
-            panel.add(new JLabel("Item Name:"));
+            panel.add(new JLabel("Item name:"));
             panel.add(nameField);
             panel.add(new JLabel("Quantity:"));
             panel.add(quantityField);
@@ -120,12 +124,20 @@ public class InventoryManagerGUI extends JFrame {
 
             int result = JOptionPane.showConfirmDialog(null, panel, "Update Item", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
-                String name = nameField.getText();
+                String name  = nameField.getText();
+                if (name.isEmpty()) {
+                    displayArea.setText("Error: Item must have a name to be updated.");
+                    return;
+                }
                 int quantity;
                 try {
                     quantity = Integer.parseInt(quantityField.getText());
                 } catch (NumberFormatException ex) {
                     displayArea.setText("Error: Incorrect format, quantity must be a number.");
+                    return;
+                }
+                if (!addRadioButton.isSelected() && !useRadioButton.isSelected()) {
+                    displayArea.setText("Error: You must select Add or Use to update the item.");
                     return;
                 }
                 boolean isAdding = addRadioButton.isSelected();
@@ -160,11 +172,11 @@ public class InventoryManagerGUI extends JFrame {
 
     private void displayInventory() {
         clearDisplayArea();
-        String[] columnNames = {"Item", "Category", "Quantity"};
+        String[] columnNames = {"ID", "Item", "Category", "Quantity"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         for (InventoryItem item : inventoryManager.getInventory()) {
-            Object[] row = {item.getName(), item.getCategory(), item.getQuantity()};
+            Object[] row = {item.getId(), item.getName(), item.getCategory(), item.getQuantity()};
             model.addRow(row);
         }
 
