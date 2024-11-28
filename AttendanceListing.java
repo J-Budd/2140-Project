@@ -245,7 +245,7 @@ public class AttendanceListing extends JFrame {
     private void loadAttendance() throws ParseException, IOException {
         Calendar cal = Calendar.getInstance();
         int month = cal.get(Calendar.MONTH);
-        int todayMonth = month + 1;  // Months are 0-based, so add 1 to get the correct month.
+        int todayMonth = month + 1;
         String filename = todayMonth + ".txt";
         File attendanceFile = new File("Data/Student/Attendance/" + filename);
         String savedDate = "";
@@ -270,10 +270,9 @@ public class AttendanceListing extends JFrame {
     
         // Step 2: Check if it's a new day (i.e., no saved attendance for today)
         if (!savedDate.equals(formatDate(today))) {
-            // It's a new day: Load students and show them in the table, leaving columns blank
-            studentsList = loadStudents();  // Load the list of students for the day
-            showTable(studentsList);        // Show student names in the table with empty columns
-            return;  // Exit as no attendance data needs to be processed today
+            studentsList = loadStudents();
+            showTable(studentsList);
+            return;
         }
     
         // Step 3: Proceed if attendance data exists for the day
@@ -306,12 +305,12 @@ public class AttendanceListing extends JFrame {
     
                 // If we encounter "Afternoon" or another section heading, stop loading or switch section
                 if (line.contains("Afternoon")) {
-                    isMorning = false;  // Now we are reading afternoon data
-                    continue; // Skip the line with "Afternoon" heading
+                    isMorning = false;
+                    continue;
                 }
     
                 // Split line data by commas
-                String[] attendData = line.split(",", -1); // Use comma as delimiter and keep empty values
+                String[] attendData = line.split(",", -1);
     
                 // Ensure the data is well-formed with 3 elements (Name, Attendance status, Note)
                 if (attendData.length >= 3) {
@@ -343,12 +342,12 @@ public class AttendanceListing extends JFrame {
     
                 // Ensure the student is already in studentsList to avoid duplicates
                 if (!studentsList.contains(studentName)) {
-                    studentsList.add(studentName);  // Only add the name once
-                    addToTable(studentName);  // Ensure student name is added to the table
+                    studentsList.add(studentName);
+                    addToTable(studentName);
                 }
     
                 // Set attendance data for morning and afternoon
-                int rowIndex = studentsList.indexOf(studentName);  // Get the correct index
+                int rowIndex = studentsList.indexOf(studentName);
                 model.setValueAt(morningAttendance, rowIndex, 1);  // Morning attendance
                 model.setValueAt(afternoonAttendance, rowIndex, 2);  // Afternoon attendance
                 model.setValueAt(note, rowIndex, 3);  // Note
