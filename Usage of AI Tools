@@ -1,0 +1,3 @@
+#Attendance Listing
+Chat GPT was used to assist in designing loadAttendance() after numerous errors kept cropping up. It was instructed to maintain the functionality of the user-defined function, and
+to use whatever user-defined functions that already existed.
