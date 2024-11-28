@@ -155,7 +155,9 @@ public class TeacherListing extends JFrame {
     private class DisplayAssignmentsButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
             // TODO: Add class for Assignments
-            throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+                GradeManagementSystem system = new GradeManagementSystem();
+                system.setVisible(true);
+            
         }
         
     }
