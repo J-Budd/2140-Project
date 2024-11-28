@@ -75,10 +75,10 @@ public class InventoryManager {
                 logTransaction("Deleted item: " + name);
                 sortInventoryByQuantity();
                 saveInventoryToFile();
-                return "Item deleted.";
+                return "Item deleted successfully.";
             }
         }
-        return "Item not found.";
+        return "Item not found in inventory.";
     }
 
     // Save inventory to a text file with headings
@@ -106,7 +106,7 @@ public class InventoryManager {
                     String name = parts[0];
                     String category = parts[1];
                     int quantity = Integer.parseInt(parts[2]);
-                    inventory.add(new InventoryItem(name, category, quantity));
+                    inventory.add(new InventoryItem( name, category, quantity));
                 }
             }
             sortInventoryByQuantity();
@@ -139,10 +139,10 @@ public class InventoryManager {
 
     // Display inventory items in the console
     public void displayInventory() {
-        System.out.printf("%-20s %-20s %-10s\n", "Item", "Category", "Quantity");
-        System.out.println("-------------------------------------------------------------");
+        System.out.printf("%-20s %-20s %-10s\n", "ID","Item", "Category", "Quantity");
+        System.out.println("----------------------------------------------------------------------");
         for (InventoryItem item : inventory) {
-            System.out.printf("%-20s %-20s %-10d\n", item.getName(), item.getCategory(), item.getQuantity());
+            System.out.printf("%-20s %-20s %-10d\n", item.getId(), item.getName(), item.getCategory(), item.getQuantity());
         }
     }
 
