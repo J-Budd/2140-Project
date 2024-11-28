@@ -5,3 +5,6 @@ to use whatever user-defined functions already existed.
 #ExpenseManageApp
 Chat GPT was used to debug the edit response button function because, after multiple attempts by the team, it would not work. It was given clear instructions on a possible method of fixing the error and then given the other user-defined functions. The response given led to the creation of the
 Expense Table Model Class to properly manipulate the new use of the JTable feature.  
+
+#clearDisplayArea function in inventory manager gui
+Claude Ai was used to help with clearing the display area after a button was clicked on. The area was constantly being stucked on either the view log or display item.
