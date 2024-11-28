@@ -8,3 +8,5 @@ Expense Table Model Class to properly manipulate the new use of the JTable featu
 
 #clearDisplayArea function in inventory manager gui
 Claude Ai was used to help with clearing the display area after a button was clicked on. The area was constantly being stucked on either the view log or display item.
+#StudentListing
+Replit Code AI was used to aid in the designing of the savefileClicked(), identifying issues with they way data was managed which lead to me using StringBuilder to make comma seperated values (CSV) instead of using .DAT file.
