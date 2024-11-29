@@ -88,39 +88,41 @@ public class StudentListing extends JPanel {
         }
     }
     private void addStudentClicked(){
-        String firstName = JOptionPane.showInputDialog(this, "Enter new first name:");
-        String lastName = JOptionPane.showInputDialog(this, "Enter new last name:");
-        String birthDate = JOptionPane.showInputDialog(this, "Enter new birth date:");
-        String address = JOptionPane.showInputDialog(this, "Enter new address:");
-        String guardian = JOptionPane.showInputDialog(this, "Enter new guardian name:");
-        String regularContact = JOptionPane.showInputDialog(this, "Enter new regular contact:");
-        String emergencyContact = JOptionPane.showInputDialog(this, "Enter new emergency contact:");
-        //validation
-        if (regularContact != null && !regularContact.isEmpty() && regularContact.length() != 9) {
-            JOptionPane.showMessageDialog(this, "Please enter a Valid 9 digit Contact Number", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        String firstName = JOptionPane.showInputDialog(this, "Enter First Name:");
+    String lastName = JOptionPane.showInputDialog(this, "Enter Last Name:");
+    String birthDate = JOptionPane.showInputDialog(this, "Enter Birth Date (e.g., 01/01/2000):");
+    String address = JOptionPane.showInputDialog(this, "Enter Address:");
+    String guardian = JOptionPane.showInputDialog(this, "Enter Guardian Name:");
+    String regularContact = JOptionPane.showInputDialog(this, "Enter Regular Contact (9 digits):");
+    String emergencyContact = JOptionPane.showInputDialog(this, "Enter Emergency Contact (9 digits):");
 
-        //validation
-        if (emergencyContact != null && !emergencyContact.isEmpty() && emergencyContact.length() != 9) {
-            JOptionPane.showMessageDialog(this, "Please enter a Valid 9 digit Contact Number", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        
-        /*if (firstName != null && !firstName.isEmpty()) model.setValueAt(firstName, selectedRow, 0);
-        if (lastName != null && !lastName.isEmpty()) model.setValueAt(lastName, selectedRow, 1);
-        if (birthDate != null && !birthDate.isEmpty()) model.setValueAt(birthDate, selectedRow, 2);
-        if (address != null && !address.isEmpty()) model.setValueAt(address, selectedRow, 3);
-        if (guardian != null && !guardian.isEmpty()) model.setValueAt(guardian, selectedRow, 4);
-        if (regularContact != null && !regularContact.isEmpty()) model.setValueAt(regularContact, selectedRow, 5);
-        if (emergencyContact != null && !emergencyContact.isEmpty()) model.setValueAt(emergencyContact, selectedRow, 6);*/
-
-        JOptionPane.showMessageDialog(this, "Update Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-        
-        /*String[] newStudent = {"New", "Student", "01/01/2002", "000 New St", "Parent", "555-555-5555", "444-444-4444"};
-    addToTable(newStudent);*/
+    if (firstName == null || firstName.isEmpty() || 
+        lastName == null || lastName.isEmpty() || 
+        birthDate == null || birthDate.isEmpty() || 
+        address == null || address.isEmpty() || 
+        guardian == null || guardian.isEmpty() || 
+        regularContact == null || regularContact.isEmpty() || 
+        emergencyContact == null || emergencyContact.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "All fields must be filled in.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
+
+    if (regularContact.length() != 9 || !regularContact.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid 9-digit Regular Contact number.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (emergencyContact.length() != 9 || !emergencyContact.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid 9-digit Emergency Contact number.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    String[] newStudent = {firstName, lastName, birthDate, address, guardian, regularContact, emergencyContact};
+    addToTable(newStudent);
+    JOptionPane.showMessageDialog(this, "Student added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    
+    }
+  
+
 
     private void updateSelectedRecord(){
         int selectedRow = table.getSelectedRow();
