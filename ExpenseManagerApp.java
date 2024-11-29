@@ -66,7 +66,7 @@ public class ExpenseManagerApp extends JFrame {
 
     // Method to load expenses from file
     public void loadExpenses() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("expenses.dat"))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Data/Expense/expenses.dat"))) {
             expenseList = (ArrayList<Expense>) ois.readObject();
             tableModel.updateData(expenseList);  // Update the table model with loaded data
         } catch (IOException | ClassNotFoundException e) {
@@ -77,7 +77,7 @@ public class ExpenseManagerApp extends JFrame {
 
     // Method to save expenses to file
     public void saveExpenses() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("expenses.dat"))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Data/Expense/expenses.dat"))) {
             oos.writeObject(expenseList);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error saving expenses.");
