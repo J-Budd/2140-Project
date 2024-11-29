@@ -3,9 +3,9 @@ import java.util.*;
 
 public class InventoryManager {
     private List<InventoryItem> inventory;
-    private String logFilePath = "inventory_log.txt";
-    private String inventoryFilePath = "inventory.txt";
-    private String usageReportFilePath = "usage_report.txt";
+    private String logFilePath = "Data/Inventory/inventory_log.txt";
+    private String inventoryFilePath = "Data/Inventory/inventory.txt";
+    private String usageReportFilePath = "Data/Inventory/usage_report.txt";
 
     public InventoryManager() {
         inventory = new ArrayList<>();
