@@ -102,7 +102,7 @@ public class GradeManagementSystem extends JFrame {
     }
 
     private void saveReportToFile(String report) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("monthly_report.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Data/Student/Grades/monthly_report.txt"))) {
             writer.write(report);
             JOptionPane.showMessageDialog(null, "Report saved to monthly_report.txt");
         } catch (IOException ex) {
