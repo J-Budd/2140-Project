@@ -134,8 +134,8 @@ public class TeacherListing extends JFrame {
 
     private class DisplayRecordsButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
-            // TODO: Add class for Student Records
-            throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+            StudentListing allStudents = new StudentListing();
+        	   allStudents.setVisible(true);   
         }
 
     }
