@@ -5,16 +5,19 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ExpenseManagerApp extends JFrame {
     public ArrayList<Expense> expenseList = new ArrayList<>();  // List to store expenses
     private JTable expenseTable;
     private ExpenseTableModel tableModel;
+    private JTextField searchField;
 
     public ExpenseManagerApp() {
         // Set up the frame properties
         setTitle("Expense Manager");
-        setSize(600, 500);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);  // Center the window
 
@@ -23,7 +26,7 @@ public class ExpenseManagerApp extends JFrame {
         expenseTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(expenseTable);
 
-        // Create buttons for adding, editing, viewing expenses, and generating reports
+        // Create buttons for adding, editing, viewing expenses, generating reports, and searching
         JButton addButton = new JButton("Add Expense");
         addButton.addActionListener(e -> addExpense());
 
@@ -39,6 +42,10 @@ public class ExpenseManagerApp extends JFrame {
         JButton termlyReportButton = new JButton("Generate Termly Report");
         termlyReportButton.addActionListener(e -> generateTermlyReport());
 
+        searchField = new JTextField(20);
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(e -> searchExpenses());
+
         // Layout setup
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -47,6 +54,8 @@ public class ExpenseManagerApp extends JFrame {
         panel.add(viewButton);
         panel.add(monthlyReportButton);  // Add the button for monthly report
         panel.add(termlyReportButton);   // Add the button for termly report
+        panel.add(searchField);          // Add the search field
+        panel.add(searchButton);         // Add the search button
 
         add(panel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
@@ -57,7 +66,7 @@ public class ExpenseManagerApp extends JFrame {
 
     // Method to load expenses from file
     public void loadExpenses() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Data/Expense/expenses.dat"))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("expenses.dat"))) {
             expenseList = (ArrayList<Expense>) ois.readObject();
             tableModel.updateData(expenseList);  // Update the table model with loaded data
         } catch (IOException | ClassNotFoundException e) {
@@ -68,7 +77,7 @@ public class ExpenseManagerApp extends JFrame {
 
     // Method to save expenses to file
     public void saveExpenses() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Data/Expense/expenses.dat"))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("expenses.dat"))) {
             oos.writeObject(expenseList);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error saving expenses.");
@@ -96,6 +105,16 @@ public class ExpenseManagerApp extends JFrame {
     // Method to view all expenses in the JTable
     private void viewExpenses() {
         tableModel.updateData(expenseList);  // Update the table model with the list of expenses
+    }
+
+    // Method to search expenses
+    private void searchExpenses() {
+        String query = searchField.getText().toLowerCase();
+        List<Expense> filteredList = expenseList.stream()
+                .filter(expense -> expense.getDescription().toLowerCase().contains(query) ||
+                                   expense.getType().toLowerCase().contains(query))
+                .collect(Collectors.toList());
+        tableModel.updateData(new ArrayList<>(filteredList));  // Update the table model with the filtered list
     }
 
     // Method to generate a monthly report
