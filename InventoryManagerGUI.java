@@ -190,7 +190,7 @@ public class InventoryManagerGUI extends JFrame {
     private void viewLog() {
         clearDisplayArea();
         StringBuilder logText = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader("inventory_log.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Data/Inventory/inventory_log.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 logText.append(line).append("\n");
